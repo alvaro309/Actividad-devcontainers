@@ -12,7 +12,10 @@ const pool = new Pool({
 app.get("/", (req, res) => {
   res.json({ message: "¡Hola desde el Dev Container!" });
 });
-
+// Saludo personalizado usando un parámetro de ruta
+app.get("/saludo/:nombre", (req, res) => {
+  res.json({ mensaje: `¡Hola, ${req.params.nombre}!` });
+});
 // Ruta de ejemplo que prueba la conexión real a PostgreSQL
 app.get("/hora-db", async (req, res) => {
   try {
