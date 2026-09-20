@@ -1,0 +1,39 @@
+{
+  "name": "Node + Postgres Dev Container",
+
+  // Usamos docker-compose porque necesitamos 2 servicios: la app y la base de datos
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+
+  // Extensiones de VS Code que se instalan automáticamente dentro del contenedor
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-azuretools.vscode-docker",
+        "mtxr.sqltools",
+        "mtxr.sqltools-driver-pg",
+        "christian-kohler.npm-intellisense"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+      }
+    }
+  },
+
+  // Puertos que se reenvían automáticamente a tu máquina
+  "forwardPorts": [3000, 5432],
+  "portsAttributes": {
+    "3000": { "label": "App Express", "onAutoForward": "notify" },
+    "5432": { "label": "PostgreSQL" }
+  },
+
+  // Comando que corre UNA vez al crear el contenedor (instala dependencias)
+  "postCreateCommand": "npm install",
+
+  // Usuario no-root dentro del contenedor (más seguro)
+  "remoteUser": "node"
+}
